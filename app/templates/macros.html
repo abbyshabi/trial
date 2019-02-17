@@ -1,0 +1,22 @@
+{% macro displayComments(comment_list) %} {% for comment in comment_list %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row col-lg-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+
+    
+
+    </div>
+    <div class="panel-body">
+      <h4><strong>{{ comment.body}}</strong></h4>
+      <p><i>By: {{comment.author}}</i></p>
+      <a href="{{url_for('main.delete_comment',post_id = comment.id)}}"  class="w3-button w3-padding-large w3-red w3-border">Delete comment</a>
+    </div>
+
+  </div>
+</div>
+
+{% endfor %} 
+{% endmacro %}

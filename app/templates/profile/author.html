@@ -1,0 +1,49 @@
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<header class="w3-container w3-padding-32"> 
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">DeeBlog</a>
+          <!-- Right-sided navbar links -->
+          <div class="w3-right w3-hide-small">
+              <h4 class="w3-center" style="margin-top:35px;">Welcome to the blog of <span class="w3-tag">{{user.username| capitalize}}'s profile!</span></h4>
+              <div class="w3-row">
+                  <div class="w3-col l8 s12">
+                      <div class="w3-card-4 w3-margin w3-white">
+                          <div class="w3-container">
+                              {% if user == user.username %}
+                              {% if posts %}
+                              {% for row in posts | batch(2) %}
+                                {% for post in row %}
+                                <h3><b>{{post.title | upper}}</b></h3>
+                                <p>Poster: <a href="{{url_for('main.writer_profile', uname = post.user.username)}}">{{post.user.username | upper}}</a></p>
+                                <p><strong>Blog-Post: </strong><br><br> {{post.body[0:100] + "......"}}
+                                  <a href="{{url_for('main.read_post',post_id = post.id)}}" class="w3-button w3-padding-large w3-white w3-border">Read more</a></p>
+                                  {% endfor %}
+                                {%endfor%}
+                                {%endif%}
+                                {%endif%}
+                                <div class="w3-col l4">
+                                  <div class="w3-card w3-margin w3-margin-top">
+                                  <div class="w3-container w3-white">
+                                  {% if user.bio %}
+                                  <p> {{user.bio}}</p>
+                                    {%else%}
+                                       <p> {{user.username| capitalize}} has no bio </p>
+                                  {% endif %}
+                     
+                    </div>
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

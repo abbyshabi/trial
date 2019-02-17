@@ -1,0 +1,92 @@
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<header class="w3-container w3-padding-32"> 
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">DeeBlog</a>
+          <!-- Right-sided navbar links -->
+          <div class="w3-right w3-hide-small">
+                {% if current_user.is_authenticated %}
+                <a href="{{url_for('auth.logout')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN OUT</a>
+                {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN IN</a>
+            {%endif%}
+            </div>
+            </div>
+            </div>
+          
+    <h4 class="w3-center" style="margin-top:35px;">Welcome to the blog of <span class="w3-tag">{{current_user.username| capitalize}}!</span></h4>
+  </header>
+  <div class="w3-row">
+      <div class="w3-col l8 s12">
+          <div class="w3-card-4 w3-margin w3-white">
+              <div class="w3-container">
+          {% if user == current_user %}
+          {% if posts %}
+          {% for row in posts | batch(2) %}
+            {% for post in row %}
+            <h3><b>{{post.title | upper}}</b></h3>
+            <div class="w3-container">
+                {% if current_user.is_authenticated %}
+                <p>Poster: <a href="{{url_for('main.profile', uname = post.user.username)}}">{{post.user.username | upper}}</a></p>
+                {%else%}
+                <p>Poster: <a href="{{url_for('main.writer_profile', uname = post.user.username)}}">{{post.user.username | upper}}</a></p>
+                {%endif%}
+                <p><strong>Blog-Post: </strong><br><br> {{post.body[0:100] + "......"}}
+        <a href="{{url_for('main.read_post',post_id = post.id)}}" class="w3-button w3-padding-large w3-white w3-border">Read more</a></p>
+        {% if current_user.is_authenticated%}
+        <a href="{{url_for('main.delete',post_id = post.id)}}" class="w3-button w3-padding-large w3-red w3-border">Delete</a>
+        <a href="{{url_for('main.update_post',post_id = post.id)}}" class="w3-button w3-padding-large w3-green w3-border">Update</a>
+        {% endif %}
+  
+{% endfor %}
+</div> 
+{% endfor %}
+
+{% endif %}
+        {%endif%}
+
+            </div>
+          </div>
+          </div>
+  </div>
+
+  
+          <div class="w3-col l4">
+              <div class="w3-card w3-margin w3-margin-top">
+                  <div class="w3-container w3-white">
+                      <h4>{{current_user.username| capitalize}}!</h4>
+                      <div>
+                      <h6>Bio</h6>
+                      {% if user.bio %}
+                        <p> {{user.bio}}</p>
+                      {%else%}
+                        <p> {{user.username| capitalize}} has no bio </p>
+                      {% endif %}
+                      {% if user == current_user %}
+                       <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+                     {% endif %}
+                     </div>
+                    </div>
+                  {% if user.profile_pic_path %}
+                  <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"  style="width:30%; border-radius:50%">
+                  {%else%}
+                  <p>No profile picture</p>
+                  {% endif %}
+                  {% if user == current_user %}
+                  <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
+              
+                    <input type="file"  name="photo" class="form-control" required>
+                    <input type="submit">
+                  </form>
+                    {% endif %}
+                    
+              </div>
+     
+
+                
+{% endblock %}

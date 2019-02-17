@@ -1,0 +1,56 @@
+<div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">DeeBlog</a>
+          <!-- Right-sided navbar links -->
+          <div class="w3-right w3-hide-small">
+              {% if current_user.is_authenticated %}
+            <a href="{{url_for('auth.logout')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN OUT</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN IN</a>
+            {%endif%}
+            <a href="{{url_for('main.blog')}}" class="w3-bar-item w3-button"><i class="fa fa-book"></i> BLOGS</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{url_for('main.profile',uname = current_user.username)}}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-user"></i>PROFILE</a>
+            {%endif%}
+            {% if current_user.is_authenticated %}
+            <a href="{{url_for('main.new_blog', uname = current_user.username)}}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> WRITE</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-pen"></i>WRITE</a>
+            {%endif%}
+            <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> ABOUT</a>
+          </div>
+        
+          </a>
+        </div>
+      </div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+        <div class=" w3-text-white" style="padding:48px; margin-top:35px;">
+                <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+                        <h1 class="w3-margin w3-xlarge">{{quotes.quote}}</h1>
+                </div>
+           <p><a href="{{url_for('main.blog')}}" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on" style="margin-top:50px;">View Blogs</a> </p>
+          {% if current_user.is_authenticated %}
+          <p> <a href="{{url_for('main.new_blog', uname = current_user.username)}}" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on">Create a blog</a> </p>
+          {% else %}
+          <p> <a href="{{url_for('auth.login')}}" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on">Create a blog</a> </p>
+          {% endif %}
+        </div> 
+        <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+          <i class="fa fa-facebook-official w3-hover-opacity"></i>
+          <i class="fa fa-instagram w3-hover-opacity"></i>
+          <i class="fa fa-snapchat w3-hover-opacity"></i>
+          <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+          <i class="fa fa-twitter w3-hover-opacity"></i>
+          <i class="fa fa-linkedin w3-hover-opacity"></i>
+        </div>
+      </header>
+<body id="top" background="{{ url_for('static', filename='photos/this.jpg') }}" style="background-repeat: no-repeat; background-size: 100%">
+  
+
+</body>

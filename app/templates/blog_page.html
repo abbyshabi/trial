@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf%}
+
+{% block styles%}
+    {{super()}}
+ 
+{% endblock %}
+
+{% block content%}
+<div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="/" class="w3-bar-item w3-button w3-wide">DeeBlog</a>
+          <!-- Right-sided navbar links -->
+          <div class="w3-right w3-hide-small">
+                {% if current_user.is_authenticated %}
+                <a href="{{url_for('auth.logout')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN OUT</a>
+                {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-th"></i>SIGN IN</a>
+            {%endif%}
+            <a href="{{url_for('main.blog')}}" class="w3-bar-item w3-button"><i class="fa fa-book"></i> BLOGS</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{url_for('main.profile',uname = current_user.username)}}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-user"></i>PROFILE</a>
+            {%endif%}
+            {% if current_user.is_authenticated %}
+            <a href="{{url_for('main.new_blog', uname = current_user.username)}}" class="w3-bar-item w3-button"><i class="fa fa-pen"></i> WRITE</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button"><i class="fa fa-pen"></i>WRITE</a>
+            {%endif%}
+            <a href="{{url_for('main.subscribe')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>SUBSCRIBE</a>
+            
+            <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> ABOUT</a>
+          </div>
+        
+          </a>
+        </div>
+      </div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="w3-col l8 s16" style="margin-top:45px;">
+<h1 class="w3-center">{{post.title}}</h1>
+            <h3 class="w3-center"><em>By {{post.user.username}} </em></h3>
+            <div class="w3-row-padding w3-padding-64 w3-container">
+                <p>{{post.body}}</p>
+            </div>
+        </div>
+        <div class="col-md-9">
+        
+            
+            <a class="post-comment" href="{{url_for('main.show_comments',post_id = post.id)}}"><button class="btn btn-info mr-0">View
+                     comments</button></a>
+          </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{%endblock%}

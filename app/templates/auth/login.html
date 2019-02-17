@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Pitchy-Pitches</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
+	<body id="top">
+				<section id="banner" data-video="images/banner">
+					<div class="inner">
+						<header>
+						
+						
+						</header>
+{% extends 'auth/auth_base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block content %}
+<body background="{{ url_for('static', filename='photos/black.jpeg') }}" style="background-repeat: no-repeat; background-size: 100%"></body>
+<div class="container"> 
+    <div class="row">
+      <div class= "col-md-2"> </div>
+      <div class="col-md-8">
+      <!--Flash message -->
+      <h3>Please sign in if you have an account otherwise sign up</h3>
+      <p>Don't want an account?  <a href="/"class="button style3 fit">Home</a></p>
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+        </div>
+      {% endfor %}
+      <!-- Login form -->
+      {{wtf.quick_form(login_form)}}
+      <p> Don't have an account? <a href="{{url_for('auth.register')}}">Sign up here</a></p>
+      
+ </div>
+    </div>
+</div>
+</body>
+{% endblock%}

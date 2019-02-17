@@ -1,0 +1,3 @@
+Hi {{subscriber.name}} !
+Thanks for subscribing to the DeeBlog! we are most delighted to have you here! .
+Please feel free to always express yourself and hit the home run :D
